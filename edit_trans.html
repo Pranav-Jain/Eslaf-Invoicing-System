@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ESLAF</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+        input, label, select{
+            display: block;
+        }
+        hr{
+        	border:1px solid black;
+        }
+        input, select{
+        	border:1px solid #900C3F;
+        	border-radius: 5px;
+        }
+        button{
+        	border:2px solid #900C3F;
+        	border-radius: 18px;
+        	background-color: #900C3F;
+        	color: #fff;
+        	
+        }
+        button:focus {
+        	outline:0;
+        }
+        button:hover{
+        	box-shadow: 1px 3px 9px 3px #8a2a21;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#" style="font-size: 25px">
+                    </a>
+                </li>
+                <li>
+                    <a href="/home" style="font-size: 20px">Home</a><br>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <h1 style="text-align: center; font-style: 'Courier New'; font-weight: bolder; color: #900C3F">ESLAF INVOICING SYSTEM</h1><br><br>
+                        <div style="float:left;margin-right:20px;">
+    <center></center><label for="invoice">TYPE OF INVOICE/CHALLAN</label></center>
+    <input id="invoice" style="width: 230px" disabled><option></option></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>SELECT COMPANY</label></center>
+    <input id="company" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>INVOICE NO.</label></center>
+    <input id="invno" type="text" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>DATE</label></center>
+    <input id="DATE" type="text" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <br>
+    <input id="manual" type="checkbox" disabled>Manual</input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>E WAY BILL NO.</label></center>
+    <input id="eway" type="text"></input>
+    </div>
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>CUSTOMER DETAILS</center></h3>
+    </div>
+    <div style="float:left;margin-right:20px;clear: both;">
+
+        <center><label for="cname">CUSTOMER NAME</label><center>
+        <input id="cname" disabled><option></option></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="bname">BILLED TO</label></center>
+        <input id="bname" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="sname">SHIPPED TO</label></center>
+        <input id="sname" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="purord">PURCHASE ORDER No.</label></center>
+        <input id="purord" disabled></input>
+    </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>TRANSPORT DETAILS</center></h3>
+    </div>
+
+    <div style="float:left;margin-right:20px;clear: both;">
+            <center><label for="trans">MODE OF TRANSPORT</label></center>
+            <input type="text" name="trans" size="30" class="trans" value="" id="trans"></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="gr">GR NO. - DATE</label></center>
+            <input type="text" name="gr" size="30" class="gr" value="" id="gr"></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="psupply">PLACE OF SUPPLY</label></center>
+            <input type="text" name="psupply" size="30" class="psupply" value="" id="psupply"></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="vehicle">VEHICLE NO.</label></center>
+            <input type="text" name="vehicle" size="30" class="vehicle" value="" id="vehicle"></input>
+        </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>ITEM DETAILS</center></h3>
+    </div>
+    </div>
+    <div style="float:left;margin-right:20px;clear: both;">
+    <div id="add">
+    </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br>
+    <center>
+    <center><label for="freight">FREIGHT</label></center>
+    <input type="number" name="freight" value="0" disabled></input>
+    </center>
+    </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><br>
+    <center>
+    <button onclick="getdata()" style="width: 200px; height: 30px;">SUBMIT</button>
+    </center>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    window.onload = function() {
+        $("#wrapper").toggleClass("toggled");
+    };
+    </script>
+
+</body>
+
+<script type="text/javascript">
+var url = document.location.href,
+        params = url.split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+var invoice = decodeURIComponent(data.invoice);
+var company = decodeURIComponent(data.company);
+var invno = decodeURIComponent(data.invno);
+var date = data.date;
+var eway = decodeURIComponent(data.eway);
+var purord = decodeURIComponent(data.purord);
+var trans = decodeURIComponent(data.trans);
+var gr = decodeURIComponent(data.gr);
+var vehicle = decodeURIComponent(data.vehicle);
+var psupply = decodeURIComponent(data.psupply);
+var cname = decodeURIComponent(data.cname);
+var bname = decodeURIComponent(data.bname);
+var sname = decodeURIComponent(data.sname);
+
+var items = new Array();
+var qty = new Array();
+var rate = new Array();
+items = decodeURIComponent(data.items).split(',');
+qty = decodeURIComponent(data.qty).split(',');
+rate = decodeURIComponent(data.rate).split(',');
+
+document.getElementById('company').value = company;
+document.getElementById('invno').value = invno;
+document.getElementById('DATE').value = date;
+document.getElementById('eway').value = eway;
+document.getElementById('purord').value = purord;
+document.getElementById('trans').value = trans;
+document.getElementById('gr').value = gr;
+document.getElementById('vehicle').value = vehicle;
+document.getElementById('psupply').value = psupply;
+document.getElementById('cname').value = cname;
+document.getElementById('bname').value = bname;
+document.getElementById('sname').value = sname;
+document.getElementById('invoice').value = invoice;
+
+
+for(i=1;i<items.length;i++){
+    var temp = items[i].split(":");
+    var it = temp[0].trim();
+    if(temp[1]==null)
+        var des="";
+    else
+    var des = temp[1].trim();
+    $('#add').append(`
+    <div style="float:left;margin-right:20px;clear: both;">
+            <center><label for="items">ITEMS HEAD</label></center>
+            <input class="items" disabled value="`+it+`"></input>
+        </div>
+            <div style="float:left;margin-right:20px;">
+            <center><label for="des">DESCRIPTION OF GOODS</label></center>
+            <input type="text" name="des" size="50" class="des" value="`+des+`" disabled></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="qty">QUANTITY</label></center>
+            <input type="number" name="qty" class="qty" value="`+qty[i]+`" disabled></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="rate">RATE</label></center>
+            <input type="number" name="rate" class="rate" value="`+rate[i]+`" disabled></input>
+        </div>`);
+}
+
+function getdata(){
+var url = document.location.href,
+        params = url.split('?')[1].split('&'),
+        data = {}, tmp;
+    for (var i = 0, l = params.length; i < l; i++) {
+         tmp = params[i].split('=');
+         data[tmp[0]] = tmp[1];
+    }
+eway = document.getElementById('eway').value;
+trans = document.getElementById('trans').value;
+gr = document.getElementById('gr').value;
+vehicle = document.getElementById('vehicle').value;
+psupply = document.getElementById('psupply').value;
+
+nexturl = '/update?company='+data.company+'&address='+data.address+'&phone='+data.phone+'&deals='+data.deals+'&email='+data.email+'&gstin='+data.gstin+'&invoice='+data.invoice+'&pan='+data.pan+'&cin='+data.cin+'&bank='+data.bank+'&ac='+data.ac+'&ifsc='+data.ifsc+'&items='+data.items+'&hsn='+data.hsn+'&gst='+data.gst+'&qty='+data.qty+'&rate='+data.rate+'&freight='+data.freight+'&state='+data.state+'&cgstin='+data.cgstin+'&cstate='+data.cstate+'&badd='+data.badd+'&invno='+data.invno+'&date='+data.date+'&eway='+eway+'&purord='+data.purord+'&trans='+trans+'&gr='+gr+'&vehicle='+vehicle+'&psupply='+psupply+'&cname='+data.cname+'&bname='+data.bname+'&sname='+data.sname+'&sadd='+data.sadd+'&sgstin='+data.sgstin+'&sstate='+data.sstate ;
+var win = window.open(nexturl, '_blank');
+win.focus();           
+var x = 0;
+}
+function add(){
+        var $button = $('#it').clone().appendTo('#add');
+    }
+
+$(function(){
+    $("#upload_link").on('click', function(e){
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+});
+
+ $(function() {
+     $("input:file").change(function (){
+       $("#uploadsubmit:hidden").trigger('click');
+     });
+  });
+</script>
+
+</html>

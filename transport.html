@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ESLAF</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+        input, label, select{
+            display: block;
+        }
+        hr{
+        	border:1px solid black;
+        }
+        input, select{
+        	border:1px solid #900C3F;
+        	border-radius: 5px;
+        }
+        button{
+        	border:2px solid #900C3F;
+        	border-radius: 18px;
+        	background-color: #900C3F;
+        	color: #fff;
+        	
+        }
+        button:focus {
+        	outline:0;
+        }
+        button:hover{
+        	box-shadow: 1px 3px 9px 3px #8a2a21;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#" style="font-size: 25px">
+                    </a>
+                </li>
+                <li>
+                    <a href="/home" style="font-size: 20px">Home</a><br>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <h1 style="text-align: center; font-style: 'Courier New'; font-weight: bolder; color: #900C3F">ESLAF INVOICING SYSTEM</h1><br><br>
+    <div class="row">
+    <div class="col-lg-6">
+    <div style="margin-right:20px;float: right;">
+    <label for="customer">CUSTOMER / BILLED TO</label>
+    <select id="customer" style="width: 300px;" onchange="getcompany()"><option></option></select>
+    </div></div>
+    <div class="col-lg-6" style="float: left;">
+    <label>COMPANY</label>
+    <select id="company" style="width: 300px" onchange="getinvoice()"><option></option></select></center>
+    </div></div>
+    <div style="margin-right:20px;">
+    <br><br>
+    <center><label>INVOICE NO.  |  DATE</label></center>
+    <center><select id="invoice" style="width: 250px"></select></center>
+    </div>
+    <div style="margin-right:20px;clear: both;">
+    <br><br>
+    <center>
+    <button onclick="getdata()" style="width: 200px; height: 30px;">SUBMIT</button>
+    <button onclick="refresh()" style="width: 200px; height: 30px;">CLEAR</button>
+    </center>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    window.onload = function() {
+        $("#wrapper").toggleClass("toggled");
+    };
+    </script>
+
+</body>
+
+<script type="text/javascript">
+    $.ajax({
+    type: "GET",
+    url: "/customer",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        var x = 'CUSTOMER MASTER'
+        var unique = new Array();
+        for (i = 0; i < response[x].length; i++) { 
+            var cname = response[x][i]['BILLING NAME'];
+            unique.push(cname);
+            if( cname != null)
+                $('#customer').append('<option value='+cname+'>'+cname+'</option>');
+}
+    }, 
+});
+
+var name = '';
+function getcompany(){
+        var cname = $('#customer :selected').text();
+         $.ajax({
+        type: "GET",
+        url: "/customer",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var x = 'CUSTOMER MASTER';
+        // var your_object = JSON.parse(response.d);
+        for (i = 0; i < response[x].length; i++) { 
+            if(cname==response[x][i]['BILLING NAME']){
+                name = response[x][i]['NAME OF CUSTOMER'];
+                var lscomp = new Array();
+                lscomp = response[x][i]['BILL COMPANY'].split(',');
+                for(j=0;j<lscomp.length;j++){
+                    lscomp[j] = lscomp[j].trim();
+                    $('#company').append('<option value='+lscomp[j]+'>'+lscomp[j]+'</option>');
+                }
+            }
+        }
+    }, 
+});
+    }
+
+function getinvoice(){
+    var cname = $('#customer :selected').text();
+    //cname = encodeURIComponent(cname);
+    var bname ='';
+     $.ajax({
+        type: "GET",
+        url: "/customer",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success: function (response) {
+            var x = 'CUSTOMER MASTER';
+        // var your_object = JSON.parse(response.d);
+        for (i = 0; i < response[x].length; i++) { 
+            if(cname==response[x][i]['BILLING NAME']){
+                bname = response[x][i]['NAME OF CUSTOMER'];
+            }
+        }
+    }, 
+});
+    var company = $('#company :selected').text();
+    var flag=0;
+     
+    $.ajax({
+        type: "POST",
+        url: "/geturltrans",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ customer: cname, company:company }),
+        async: true,
+        success: function (response) {
+           if(response=="no"){
+               flag++; 
+           }
+            else{
+                for(i=0;i<response.length;i++){
+                    $('#invoice').append('<option value='+response[i]['invoice'] + " | "+response[i]['date']+'>'+response[i]['invoice'] + " | "+response[i]['date']+'</option>');
+                }
+            }
+        }, 
+    });
+    
+    $.ajax({
+        type: "POST",
+        url: "/geturltrans",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ customer: name, company:company }),
+        async: true,
+        success: function (response) {
+            if(response=="no"){
+                    flag++;
+            }
+            else{
+                    for(i=0;i<response.length;i++){
+                        $('#invoice').append('<option value='+response[i]['invoice'] + " | "+response[i]['date']+'>'+response[i]['invoice'] + " | "+response[i]['date']+'</option>');
+                    }
+            }
+            if(flag==2){
+                alert("No Results Found");
+            }
+            else
+            {
+                var myDropDown=document.getElementById("invoice");
+                    var length = myDropDown.options.length;
+                    //open dropdown
+                    myDropDown.size = length;
+            }
+        }, 
+    });
+
+ }
+function getdata(){
+    var cname = $('#customer :selected').text();
+    var company = $('#company :selected').text();
+    var temp = $('#invoice :selected').text();
+    var data = new Array();
+    data = temp.split("|");
+    for(i=0;i<2;i++)
+        data[i] = data[i].trim();
+     $.ajax({
+        type: "POST",
+        url: "/geturltrans",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify({ customer: cname, company:company, invoice:data[0], date:data[1]}),
+        async: true,
+        success: function (response) {
+           if(response=="no"){
+                //alert("No Results Found");
+                $.ajax({
+                        type: "POST",
+                        url: "/geturltrans",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ customer: name, company:company, invoice:data[0], date:data[1]}),
+                        async: true,
+                        success: function (response) {
+                           if(response=="no")
+                                alert("No Results Found");
+                            else{
+                                var index = response[0]['url'].indexOf("?")
+                                var length = response[0]['url'].length;
+                                window.location.href = '/edit/trans'+response[0]['url'].substr(index, length);
+                                }
+                        }, 
+                });
+           }
+            else{
+                var index = response[0]['url'].indexOf("?")
+                var length = response[0]['url'].length;
+                window.location.href = '/edit/trans'+response[0]['url'].substr(index, length);
+                }
+        }, 
+});
+}
+
+function refresh(){
+    window.location.reload();
+}
+</script>
+
+</html>

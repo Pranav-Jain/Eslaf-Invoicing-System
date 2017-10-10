@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ESLAF</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+<style type="text/css">
+        input, label, select{
+            display: block;
+        }
+        hr{
+        	border:1px solid black;
+        }
+        input, select{
+        	border:1px solid #900C3F;
+        	border-radius: 5px;
+        }
+        button{
+        	border:2px solid #900C3F;
+        	border-radius: 18px;
+        	background-color: #900C3F;
+        	color: #fff;
+        	
+        }
+        button:focus {
+        	outline:0;
+        }
+        button:hover{
+        	box-shadow: 1px 3px 9px 3px #8a2a21;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#" style="font-size: 25px">
+                    </a>
+                </li>
+                <li>
+                    <a href="/reports" style="font-size: 20px">Reports</a><br>
+                </li>
+                <li>
+                	<form action="upload" method="post" enctype="multipart/form-data">
+                		<a href="" style="font-size: 20px" id="upload_link">Upload</a><br>
+                		<input type="file" name="fileUploaded" style="display: none;" id="upload">
+                		<input type="submit" id="uploadsubmit" style="display: none;">
+                	</form>
+                </li>
+                <li>
+                	<a href="/transport" style="font-size: 20px">Transport / Eway</a><br>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                    <h1 style="text-align: center; font-style: 'Courier New'; font-weight: bolder; color: #900C3F">ESLAF INVOICING SYSTEM</h1><br><br>
+                        <div style="float:left;margin-right:20px;">
+    <center></center><label for="invoice">TYPE OF INVOICE/CHALLAN</label></center>
+    <select id="invoice" style="width: 230px" onchange="dropdown();invo();"><option></option></select>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>SELECT COMPANY</label></center>
+    <select id="company" onchange="dropdown();invo();" disabled></select>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>INVOICE NO.</label></center>
+    <input id="invno" type="text" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>DATE</label></center>
+    <input id="DATE" type="text" disabled></input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <br>
+    <input id="manual" type="checkbox" onclick="dateenable()">Manual</input>
+    </div>
+    <div style="float:left;margin-right:20px;">
+    <center><label>E WAY BILL NO.</label></center>
+    <input id="eway" type="text"></input>
+    </div>
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>CUSTOMER DETAILS</center></h3>
+    </div>
+    <div style="float:left;margin-right:20px;clear: both;">
+
+        <center><label for="cname">CUSTOMER NAME</label><center>
+        <select id="cname" onchange="dropdown()"><option></option></select>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="bname">BILLED TO</label></center>
+        <select id="bname" onchange="dropdown2()"></select>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="sname">SHIPPED TO</label></center>
+        <select id="sname"></select>
+    </div>
+    <div style="float:left;margin-right:20px;">
+        <center><label for="purord">PURCHASE ORDER No.</label></center>
+        <input id="purord"></input>
+    </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>TRANSPORT DETAILS</center></h3>
+    </div>
+
+    <div style="float:left;margin-right:20px;clear: both;">
+            <center><label for="trans">MODE OF TRANSPORT</label></center>
+            <input type="text" name="trans" size="30" class="trans" value=""></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="gr">GR NO. - DATE</label></center>
+            <input type="text" name="gr" size="30" class="gr" value=""></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="psupply">PLACE OF SUPPLY</label></center>
+            <input type="text" name="psupply" size="30" class="psupply" value=""></input>
+        </div>
+    <div style="float:left;margin-right:20px;">
+            <center><label for="vehicle">VEHICLE NO.</label></center>
+            <input type="text" name="vehicle" size="30" class="vehicle" value=""></input>
+        </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><hr>
+    <h3><center>ITEM DETAILS</center></h3>
+    </div>
+    <div style="display: none;">
+    <div id="it">
+    <div class="candelete">
+        <div style="float:left;margin-right:20px;clear: both;">
+            <center><label for="items">ITEMS HEAD</label></center>
+            <select class="items"><option></option></select>
+        </div>
+            <div style="float:left;margin-right:20px;">
+            <center><label for="des">DESCRIPTION OF GOODS</label></center>
+            <input type="text" name="des" size="50" class="des" value=""></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="qty">QUANTITY</label></center>
+            <input type="number" name="qty" class="qty" value="0"></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="rate">RATE</label></center>
+            <input type="number" name="rate" class="rate" value="0"></input>
+        </div>
+        </div>
+    </div>
+    </div>
+    <div style="float:left;margin-right:20px;clear: both;">
+    <div id="add">
+    	<div style="float:left;margin-right:20px;clear: both;">
+            <center><label for="items">ITEMS HEAD</label></center>
+            <select id="firstitem" class="items" onchange="itemsort()"><option></option></select>
+        </div>
+            <div style="float:left;margin-right:20px;">
+            <center><label for="des">DESCRIPTION OF GOODS</label></center>
+            <input type="text" name="des" size="50" class="des" value=""></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="qty">QUANTITY</label></center>
+            <input type="number" name="qty" class="qty" value="0"></input>
+        </div>
+        <div style="float:left;margin-right:20px;">
+            <center><label for="rate">RATE</label></center>
+            <input type="number" name="rate" class="rate" value="0"></input>
+        </div>
+    </div>
+    </div>
+    <div style="float:left;margin-right:20px;clear: both;">
+    <button id="button_repeat" onclick="add()" style="width: 100px; height: 30px">ADD</button>
+    </div>
+    <div style="float:left;margin-right:20px">
+    <button id="button_repeat" onclick="del()" style="width: 100px; height: 30px">DELETE</button>
+    </div>
+    <div style="margin-right:20px;clear: both;">
+    <center>
+    <center><label for="freight">FREIGHT</label></center>
+    <input type="number" name="freight" value="0"></input>
+    </center>
+    </div>
+
+    <div style="margin-right:20px;clear: both;">
+    <br><br>
+    <center>
+    <button onclick="getdata()" style="width: 200px; height: 30px;">SUBMIT</button>
+    <button onclick="refresh()" style="width: 200px; height: 30px;">CLEAR</button>
+    </center>
+    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    window.onload = function() {
+        $("#wrapper").toggleClass("toggled");
+    };
+    </script>
+
+</body>
+
+<script type="text/javascript">
+var badd = '';
+var cgstin = '';
+var cstate = '';
+var sadd = '';
+var sgstin = '';
+var sstate = '';
+var itemgst = '';
+var check;
+$.ajax({
+    type: "GET",
+    url: "/master",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        for (i = 0; i < response['MASTER'].length; i++) { 
+            var invoice = response['MASTER'][i]['KINDS OF INVOICE'];
+            var company = response['MASTER'][i]['COMPANY NAME'];
+            var items = response['MASTER'][i]['ITEMS NAME'];
+            if( invoice != null)
+                $('#invoice').append('<option value='+invoice+'>'+invoice+'</option>');
+            if(company != null)
+                $('#company').append('<option value='+company+'>'+company+'</option>');
+            if(items != null)
+                $('#firstitem').append('<option value='+items+'>'+items+'</option>');
+}
+    }, 
+    failure: function (msg) {
+        alert(msg);
+    },
+    error: function (a, b, c) {
+
+    }
+});
+
+$.ajax({
+    type: "GET",
+    url: "/customer",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        var x = 'CUSTOMER MASTER'
+        var unique = new Array();
+        for (i = 0; i < response[x].length; i++) { 
+            var cname = response[x][i]['NAME OF CUSTOMER'];
+            unique.push(cname);
+            if( cname != null)
+                $('#cname').append('<option value='+cname+'>'+cname+'</option>');
+}
+    }, 
+    failure: function (msg) {
+        alert(msg);
+    },
+    error: function (a, b, c) {
+
+    }
+});
+
+function getdata(){
+	//alert(check);
+	var invo = $('#invoice :selected').text();
+    var com = $('#company :selected').text();
+	var flag =1;
+	$.ajax({
+    	type: "POST",
+	    url: "/getinvoice",
+	    contentType: "application/json; charset=utf-8",
+	    // dataType: "json",
+	    data: JSON.stringify({ invoice: invo, company:com }),
+	    success: function (response) {
+	    	//alert(response);
+        if(parseInt(response)>parseInt(check)){
+        	alert("Bill already created");
+        	flag=0;
+        	refresh();
+        }
+        },
+		});
+            $.ajax({
+                type: "GET",
+                url: "/master",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                success: function (response) {
+                    // var items = [];
+                    var invoice = $("#invoice :selected").text(); 
+                    var company = $("#company :selected").text(); 
+                    var items = [];
+                    for (i = 0; i < response['MASTER'].length; i++) {
+                        if(response['MASTER'][i]['COMPANY NAME']==company){
+                            response['MASTER'][i]['CO. ADDRESS'] = response['MASTER'][i]['CO. ADDRESS'].replace(/ \& /g," AND ")
+                            var address = response['MASTER'][i]['CO. ADDRESS'];
+                            var phone = response['MASTER'][i]['PHONE NO.'];
+                            var deals = response['MASTER'][i]['DEALS IN'];
+                            var email = response['MASTER'][i]['EMAIL'];
+                            var gstin = response['MASTER'][i]['GSTIN NO.'];
+                            var pan = response['MASTER'][i]['PAN NO.'];
+                            var cin = response['MASTER'][i]['CIN NO.'];
+                            var bank = response['MASTER'][i]['BANK DETAILS'];
+                            var ac = response['MASTER'][i]['A/C. NO'];
+                            var ifsc = response['MASTER'][i]['IFSC CODE'];
+                        }
+
+                    }
+                    var des = [];
+                    $(".des").each(function(){
+                            des.push($( this ).val() );
+                        });
+                    $(".items :selected").each(function(){
+                            items.push($( this ).text());
+                        });
+                    var hsn = [];
+                    var gst = [];
+                    var qty = [];
+                    var rate = [];
+                    for (j = 0; j < items.length; j++) {
+                    for (i = 0; i < response['MASTER'].length; i++) {
+                        if(response['MASTER'][i]['ITEMS NAME']==items[j]){
+                            hsn.push(response['MASTER'][i]['HSN']);
+                            gst.push(response['MASTER'][i]['GST']);
+                    } }}
+                    $(".qty").each(function(){
+                            qty.push($( this ).val() );
+                        });
+                    $(".rate").each(function(){
+                            rate.push($( this ).val() );
+                        });
+                    for(i=0;i<items.length;i++){
+                        des[i] = des[i].replace(/\,/g, "-")
+                        items[i] = items[i] + ": "+des[i];
+                    }
+                    // alert(deals);
+                    var freight = $('[name=freight]').val();
+                    var code = gstin.substr(0,2);
+                    for (i = 0; i < response['MASTER'].length; i++) {
+                        if(response['MASTER'][i]['STATE CODE']==code)
+                            var state = response['MASTER'][i]['STATES']
+                    }
+                    var invno = $('#invno').val();
+                    var date = $('#DATE').val();
+                    var eway = $('#eway').val();
+                    var purord = $('#purord').val();
+                    var trans = $('.trans').val();
+                    var gr = $('.gr').val();
+                    var vehicle = $('.vehicle').val();
+                    var psupply = $('.psupply').val();
+                    var cname = $("#cname :selected").text();
+                    var bname = $("#bname :selected").text();
+                    var sname = $("#sname :selected").text();
+                    bname = bname.replace(/ \& /g, " AND ");
+                    cname = cname.replace(/ \& /g, " AND ");
+                    sname = sname.replace(/ \& /g, " AND ");
+                    badd = badd.replace(/ \& /g, " AND ");
+
+                    if(flag==1){
+                    url = '/?company='+company+'&address='+address+'&phone='+phone+'&deals='+deals+'&email='+email+'&gstin='+gstin+'&invoice='+invoice+'&pan='+pan+'&cin='+cin+'&bank='+bank+'&ac='+ac+'&ifsc='+ifsc+'&items='+items+'&hsn='+hsn+'&gst='+itemgst+'&qty='+qty+'&rate='+rate+'&freight='+freight+'&state='+state+'&cgstin='+cgstin+'&cstate='+cstate+'&badd='+badd+'&invno='+invno+'&date='+date+'&eway='+eway+'&purord='+purord+'&trans='+trans+'&gr='+gr+'&vehicle='+vehicle+'&psupply='+psupply+'&cname='+cname+'&bname='+bname+'&sname='+sname+'&sadd='+sadd+'&sgstin='+sgstin+'&sstate='+sstate ;
+                    var win = window.open(url, '_blank');
+ 					 win.focus();               
+                }}
+            });         
+}
+
+var x = 0;
+function add(){
+        var $button = $('#it').clone().appendTo('#add');
+        $.ajax({
+    type: "GET",
+    url: "/master",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        for (i = 0; i < response['MASTER'].length; i++) { 
+            if(response['MASTER'][i]['GST']==itemgst){
+                var items = response['MASTER'][i]['ITEMS NAME'];
+                $('.items').last().append('<option value='+items+'>'+items+'</option>');
+            }
+}
+    }, 
+});
+    }
+
+function del(){
+        $('.candelete').last().remove();
+}
+
+function invo(){
+    	var invo = $('#invoice :selected').text();
+    	var company = $('#company :selected').text();
+    	$('#company').removeAttr('disabled');
+    	if(invo=="RCM INVOICE"){
+    		$('#bname').html('');
+    		$('#bname').append('<option value='+company+'>'+company+'</option>');
+    		$('#bname').attr('disabled', 'disabled');
+    		$('#cname').attr('disabled', 'disabled');
+    		$('#bcomp').attr('disabled', 'disabled');
+    	}
+    	else{
+    		$('#bname').html('');
+    		$('#bname').removeAttr('disabled');
+    		$('#cname').removeAttr('disabled');
+    		$('#bcomp').removeAttr('disabled');
+    	}
+
+    	$.ajax({
+    	type: "POST",
+	    url: "/getinvoice",
+	    contentType: "application/json; charset=utf-8",
+	    // dataType: "json",
+	    data: JSON.stringify({ invoice: invo, company:company }),
+	    success: function (response) {
+	    check = response;
+        if(invo=="GST INVOICE")
+        	document.getElementById('invno').value=response;
+        if(invo=="RCM INVOICE")
+    		document.getElementById('invno').value='RCM-'+response;
+    	if(invo=="DELIVERY CHALLAN")
+    		document.getElementById('invno').value='DC-'+response;
+    	if(invo=="DEBIT NOTE")
+    		document.getElementById('invno').value='DN-'+response;
+    	if(invo=="CREDIT NOTE")
+    		document.getElementById('invno').value='CN-'+response;
+        },
+		});
+    }
+
+function dropdown(){
+    var cname = $("#cname :selected").text();
+    var company = $("#company :selected").text();
+    $('#bname').html('<option></option>');
+    $('#sname').html('');
+    $.ajax({
+    type: "GET",
+    url: "/customer",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        var x = 'CUSTOMER MASTER'
+        var flag = 0;
+        for (i = 0; i < response[x].length; i++) { 
+            if(cname==response[x][i]['NAME OF CUSTOMER']){
+            var bname = response[x][i]['BILLING NAME'];
+            var sname = response[x][i]['SHIPPING NAME'];
+
+            var bcomp = new Array();
+            if(response[x][i]['BILL COMPANY']!=null){
+            bcomp = String(response[x][i]['BILL COMPANY']).split('\,');
+            for(j=0;j<bcomp.length;j++){
+            	bcomp[j] = bcomp[j].trim();
+            }
+            var company = $('#company :selected').text();
+            if($.inArray(company, bcomp)==-1){
+            	alert("Company doesn't supply to this customer");
+            	$('#cname').val(1);
+                $('#bname').html('<option></option>');
+                $('#sname').html('');
+                flag=1;
+            }
+        }
+        if(flag==0){
+            $('#bname').append('<option value='+bname+'>'+bname+'</option>');
+            
+    }
+        }
+}
+    }, 
+});
+}
+
+function dropdown2(){
+	var cname = $("#cname :selected").text();
+    var bname = $("#bname :selected").text();
+    $('#sname').html('');
+    $.ajax({
+    type: "GET",
+    url: "/customer",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        var x = 'CUSTOMER MASTER'
+        for (i = 0; i < response[x].length; i++) { 
+            if(bname==response[x][i]['BILLING NAME'] && cname==response[x][i]['NAME OF CUSTOMER']){
+            var sname = response[x][i]['SHIPPING NAME'];
+            badd = response[x][i]['BILLING ADDRESS'];
+            cgstin = response[x][i]['GSTIN'];
+            cstate = response[x][i]['STATE'];
+            sadd = response[x][i]['SHIPPER TO'];
+            sgstin = response[x][i]['SHIPPING GSTIN'];
+            sstate = response[x][i]['SHIPPING STATE'];
+            var sname = response[x][i]['SHIPPING NAME'];
+            $('#sname').append('<option value='+sname+'>'+sname+'</option>');
+        }
+}
+    }, 
+});
+}
+
+function itemsort(){
+    var itemselected = $("#firstitem :selected").text();
+    $.ajax({
+    type: "GET",
+    url: "/master",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json",
+    async: true,
+    success: function (response) {
+        // var your_object = JSON.parse(response.d);
+        var x = 'MASTER'
+        for (i = 0; i < response[x].length; i++) { 
+            if(itemselected==response[x][i]['ITEMS NAME']){
+            itemgst = response[x][i]['GST'];
+        }
+}
+    }, 
+});
+}
+
+function refresh(){
+	window.location.reload();
+}
+
+function dateenable(){
+    if(document.getElementById("manual").checked == true)
+    $('#DATE').removeAttr("disabled");
+    else
+    $('#DATE').attr("disabled", "disabled");
+}
+$(function(){
+    $("#upload_link").on('click', function(e){
+        e.preventDefault();
+        $("#upload:hidden").trigger('click');
+    });
+});
+
+ $(function() {
+     $("input:file").change(function (){
+       $("#uploadsubmit:hidden").trigger('click');
+     });
+  });
+
+var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    } 
+    if(mm<10){
+        mm='0'+mm;
+    } 
+    var today = dd+'/'+mm+'/'+yyyy;
+    document.getElementById("DATE").value = today;
+</script>
+
+</html>
